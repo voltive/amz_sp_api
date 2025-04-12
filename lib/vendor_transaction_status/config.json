@@ -1,0 +1,9 @@
+{
+  "gemName": "vendor_transaction_status",
+  "moduleName": "AmzSpApi::VendorTransactionStatus",
+  "gemVersion": "0.1.0",
+  "gemAuthor": "Eric Jensen",
+  "gemAuthorEmail": "",
+  "gemHomepage": "https://github.com/ericcj/amz_sp_api",
+  "gemLicense": "Apache-2.0"
+}

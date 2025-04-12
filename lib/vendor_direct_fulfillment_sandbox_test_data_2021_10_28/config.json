@@ -1,0 +1,9 @@
+{
+  "gemName": "vendor_direct_fulfillment_sandbox_test_data_2021_10_28",
+  "moduleName": "AmzSpApi::VendorDirectFulfillmentSandboxTestData20211028",
+  "gemVersion": "0.1.0",
+  "gemAuthor": "Eric Jensen",
+  "gemAuthorEmail": "",
+  "gemHomepage": "https://github.com/ericcj/amz_sp_api",
+  "gemLicense": "Apache-2.0"
+}

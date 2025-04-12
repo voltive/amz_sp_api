@@ -1,0 +1,9 @@
+{
+  "gemName": "product_pricing_2022_05_01",
+  "moduleName": "AmzSpApi::ProductPricing20220501",
+  "gemVersion": "0.1.0",
+  "gemAuthor": "Eric Jensen",
+  "gemAuthorEmail": "",
+  "gemHomepage": "https://github.com/ericcj/amz_sp_api",
+  "gemLicense": "Apache-2.0"
+}

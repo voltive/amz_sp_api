@@ -3,7 +3,7 @@ require 'api_client'
 require 'configuration'
 require 'sp_api_client'
 
-require 'tokens-api-model'
+require 'tokens_2021_03_01'
 
 module AmzSpApi
   class RestrictedSpApiClient < ApiClient
@@ -38,7 +38,7 @@ module AmzSpApi
     end
 
     def request_rdt_access_token
-      api_tokens = AmzSpApi::TokensApiModel::TokensApi.new(@wrapped_client)
+      api_tokens = AmzSpApi::Tokens20210301::TokensApi.new(@wrapped_client)
       response = api_tokens.create_restricted_data_token(@create_restricted_data_token_request)
 
       {access_token: response.restricted_data_token,

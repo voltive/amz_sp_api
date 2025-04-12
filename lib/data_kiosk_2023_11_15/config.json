@@ -1,0 +1,9 @@
+{
+  "gemName": "data_kiosk_2023_11_15",
+  "moduleName": "AmzSpApi::DataKiosk20231115",
+  "gemVersion": "0.1.0",
+  "gemAuthor": "Eric Jensen",
+  "gemAuthorEmail": "",
+  "gemHomepage": "https://github.com/ericcj/amz_sp_api",
+  "gemLicense": "Apache-2.0"
+}

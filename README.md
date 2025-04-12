@@ -19,7 +19,7 @@ Please follow the [installation](#installation) procedure and then run the follo
 # Load the gem and specific api model you'd like to use
 
 require 'amz_sp_api'
-require 'fulfillment-outbound-api-model'
+require 'fulfillment_outbound_2020_07_01'
 
   AmzSpApi.configure do |config|
     config.refresh_token =
@@ -37,7 +37,7 @@ require 'fulfillment-outbound-api-model'
   end
 
   begin
-    api = AmzSpApi::FulfillmentOutboundApiModel::FbaOutboundApi.new(AmzSpApi::SpApiClient.new)
+    api = AmzSpApi::FulfillmentOutbound20200701::FbaOutboundApi.new(AmzSpApi::SpApiClient.new)
     p api.list_all_fulfillment_orders.payload
   rescue AmzSpApi::ApiError => e
     puts "Exception when calling SP-API: #{e}"
@@ -49,7 +49,7 @@ require 'fulfillment-outbound-api-model'
 Configure as per above but also create a new client for each restrictedResources you need, e.g.:
 
 ```
-require 'orders-api-model'
+require 'orders_v0'
 
 client = AmzSpApi::RestrictedSpApiClient.new({
   'restrictedResources' => [
@@ -60,7 +60,7 @@ client = AmzSpApi::RestrictedSpApiClient.new({
     }
   ]
 })
-api_orders = AmzSpApi::OrdersApiModel::OrdersV0Api.new(client)
+api_orders = AmzSpApi::OrdersV0::OrdersV0Api.new(client)
 api_orders.get_orders(marketplace_ids, created_after: 1.day.ago.iso8601)
 
 client = AmzSpApi::RestrictedSpApiClient.new({
@@ -72,11 +72,11 @@ client = AmzSpApi::RestrictedSpApiClient.new({
     }
   ]
 })
-api_orders = AmzSpApi::OrdersApiModel::OrdersV0Api.new(client)
+api_orders = AmzSpApi::OrdersV0::OrdersV0Api.new(client)
 api_orders.get_order(my_order_id)
 
-# or you can use models AmzSpApi::RestrictedSpApiClient.new(AmzSpApi::TokensApiModel::CreateRestrictedDataTokenRequest.new(restricted_resources: [
-        AmzSpApi::TokensApiModel::RestrictedResource.new(...
+# or you can use models AmzSpApi::RestrictedSpApiClient.new(AmzSpApi::Tokens20210301::CreateRestrictedDataTokenRequest.new(restricted_resources: [
+        AmzSpApi::Tokens20210301::RestrictedResource.new(...
 ```
 
 ## Feeds and reports
@@ -84,7 +84,7 @@ api_orders.get_order(my_order_id)
 This gem also offers encrypt/decrypt helper methods for feeds and reports, but actually using that API as per https://developer-docs.amazon.com/sp-api/docs/ requires the following calls, e.g. for feeds but reports is the same pattern:
 
 ```ruby
-feeds = AmzSpApi::FeedsApiModel::FeedsApi.new(AmzSpApi::SpApiClient.new)
+feeds = AmzSpApi::Feeds20210630::FeedsApi.new(AmzSpApi::SpApiClient.new)
 response = feeds.create_feed_document({"contentType" => content_type})
 # PUT to response.url with lowercase "content-type" header, it's already pre-signed
 response = feeds.create_feed({"feedType" => feed_type, "marketplaceIds" => marketplace_ids, "inputFeedDocumentId" => response.feed_document_id})

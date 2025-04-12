@@ -1,0 +1,9 @@
+{
+  "gemName": "listings_items_2020_09_01",
+  "moduleName": "AmzSpApi::ListingsItems20200901",
+  "gemVersion": "0.1.0",
+  "gemAuthor": "Eric Jensen",
+  "gemAuthorEmail": "",
+  "gemHomepage": "https://github.com/ericcj/amz_sp_api",
+  "gemLicense": "Apache-2.0"
+}
