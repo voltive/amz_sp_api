@@ -37,7 +37,8 @@ require 'fulfillment_outbound_2020_07_01'
   end
 
   begin
-    api = AmzSpApi::FulfillmentOutbound20200701::FbaOutboundApi.new(AmzSpApi::SpApiClient.new)
+    client = AmzSpApi::SpApiClient.new(AmzSpApi::FulfillmentOutbound20200701)
+    api = AmzSpApi::FulfillmentOutbound20200701::FbaOutboundApi.new(client)
     p api.list_all_fulfillment_orders.payload
   rescue AmzSpApi::ApiError => e
     puts "Exception when calling SP-API: #{e}"
@@ -51,27 +52,33 @@ Configure as per above but also create a new client for each restrictedResources
 ```
 require 'orders_v0'
 
-client = AmzSpApi::RestrictedSpApiClient.new({
-  'restrictedResources' => [
-    {
-      'method' => 'GET',
-      'path' => "/orders/v0/orders",
-      'dataElements' => ['buyerInfo', 'shippingAddress']
-    }
-  ]
-})
+client = AmzSpApi::RestrictedSpApiClient.new(
+  AmzSpApi::OrdersV0,
+  {
+    'restrictedResources' => [
+      {
+        'method' => 'GET',
+        'path' => "/orders/v0/orders",
+        'dataElements' => ['buyerInfo', 'shippingAddress']
+      }
+    ]
+  }
+)
 api_orders = AmzSpApi::OrdersV0::OrdersV0Api.new(client)
 api_orders.get_orders(marketplace_ids, created_after: 1.day.ago.iso8601)
 
-client = AmzSpApi::RestrictedSpApiClient.new({
-  'restrictedResources' => [
-    {
-      'method' => 'GET',
-      'path' => "/orders/v0/orders/#{my_order_id}",
-      'dataElements' => ['buyerInfo', 'shippingAddress']
-    }
-  ]
-})
+client = AmzSpApi::RestrictedSpApiClient.new(
+  AmzSpApi::OrdersV0,
+  {
+    'restrictedResources' => [
+      {
+        'method' => 'GET',
+        'path' => "/orders/v0/orders/#{my_order_id}",
+        'dataElements' => ['buyerInfo', 'shippingAddress']
+      }
+    ]
+  }
+)
 api_orders = AmzSpApi::OrdersV0::OrdersV0Api.new(client)
 api_orders.get_order(my_order_id)
 
@@ -84,7 +91,8 @@ api_orders.get_order(my_order_id)
 This gem also offers encrypt/decrypt helper methods for feeds and reports, but actually using that API as per https://developer-docs.amazon.com/sp-api/docs/ requires the following calls, e.g. for feeds but reports is the same pattern:
 
 ```ruby
-feeds = AmzSpApi::Feeds20210630::FeedsApi.new(AmzSpApi::SpApiClient.new)
+client = AmzSpApi::SpApiClient.new(AmzSpApi::Feeds20210630)
+feeds = AmzSpApi::Feeds20210630::FeedsApi.new(client)
 response = feeds.create_feed_document({"contentType" => content_type})
 # PUT to response.url with lowercase "content-type" header, it's already pre-signed
 response = feeds.create_feed({"feedType" => feed_type, "marketplaceIds" => marketplace_ids, "inputFeedDocumentId" => response.feed_document_id})

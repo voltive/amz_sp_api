@@ -8,8 +8,8 @@ require 'tokens_2021_03_01'
 module AmzSpApi
   class RestrictedSpApiClient < ApiClient
 
-    def initialize(create_restricted_data_token_request, config = SpConfiguration.default)
-      super(config)
+    def initialize(api_namespace, create_restricted_data_token_request, config = SpConfiguration.default)
+      super(api_namespace, config)
       raise "pass create_restricted_data_token_request to RestrictedSpApiClient.new" if create_restricted_data_token_request.kind_of?(Configuration)
       @wrapped_client = SpApiClient.new(config)
       @create_restricted_data_token_request = create_restricted_data_token_request

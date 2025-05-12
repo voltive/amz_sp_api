@@ -26,10 +26,14 @@ module AmzSpApi
     # @return [Hash]
     attr_accessor :default_headers
 
+    # Needed to correctly find the model class for deserialization
+    attr_accessor :api_namespace
+
     # Initializes the ApiClient
     # @option config [Configuration] Configuration for initializing the object, default to Configuration.default
-    def initialize(config = Configuration.default)
+    def initialize(api_namespace, config = Configuration.default)
       @config = config
+      @api_namespace = api_namespace
       @user_agent = "Swagger-Codegen/#{VERSION}/ruby"
       @default_headers = {
         'Content-Type' => 'application/json',
@@ -236,7 +240,7 @@ module AmzSpApi
         end
       else
         # models, e.g. Pet
-        AmzSpApi.constants.map{|c| AmzSpApi.const_get(c)}.select{|sub| sub.kind_of?(Module)}.detect{|sub| sub.const_defined?(return_type)}.const_get(return_type).build_from_hash(data)
+        api_namespace.const_get(return_type).build_from_hash(data)
       end
     end
 

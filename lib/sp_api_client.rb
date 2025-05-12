@@ -4,8 +4,8 @@ require 'api_client'
 module AmzSpApi
   class SpApiClient < ApiClient
 
-    def initialize(config = SpConfiguration.default)
-      super(config)
+    def initialize(api_namespace, config = SpConfiguration.default)
+      super(api_namespace, config)
     end
 
     alias_method :super_call_api, :call_api
